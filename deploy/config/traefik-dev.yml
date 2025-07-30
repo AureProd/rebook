@@ -1,0 +1,21 @@
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  docker:
+    exposedByDefault: false
+    network: reverse_proxy
+
+api:
+  dashboard: true
+  insecure: true
+
+log:
+  level: 'info'
+
+accessLog:
+  filePath: /var/log/access.log
+  fields:
+    names:
+      StartUTC: drop

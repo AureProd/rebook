@@ -13,8 +13,14 @@ jobs:
       - name: Checkout of branch ${{ github.ref_name }}
         uses: actions/checkout@v4
 
-      - name: Get docker image name
-        run: echo "DOCKER_IMAGE=ghcr.io/aureprod/rebook:$(git describe --tags --match 'v[0-9]*.[0-9]*.[0-9]' --dirty --always)" >> $GITHUB_ENV
+      - name: Get semantic version
+        run: echo "APP_VERSION=$(git describe --tags --match 'v[0-9]*.[0-9]*.[0-9]' --dirty --always)" >> $GITHUB_ENV
+
+      - name: Get api docker image name
+        run: echo "DOCKER_API_IMAGE=ghcr.io/aureprod/rebook/api:${{ env.APP_VERSION }}" >> $GITHUB_ENV
+
+      - name: Get frontend docker image name
+        run: echo "DOCKER_FRONT_IMAGE=ghcr.io/aureprod/rebook/frontend:${{ env.APP_VERSION }}" >> $GITHUB_ENV
 
       - name: Pre-commit code check
         uses: pre-commit/action@v3.0.1
@@ -22,19 +28,36 @@ jobs:
       - name: Log in to Docker registry
         run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.REBOOK_CI_PACKAGE_RW }}
 
-      - name: Build Docker image
-        run: docker build -t ${{ env.DOCKER_IMAGE }} --build-arg "PYTHON_VERSION=$(cat .python-version)" -f ./deploy/Dockerfile .
+      - name: Build api docker image
+        run: docker build -t ${{ env.DOCKER_API_IMAGE }} ./api
 
-      - name: Run Trivy vulnerability scanner
+      - name: Build frontend docker image
+        run: docker build -t ${{ env.DOCKER_FRONT_IMAGE }} ./frontend
+
+      - name: Run trivy vulnerability scanner on api docker image
         uses: aquasecurity/trivy-action@0.17.0
         with:
-          image-ref: '${{ env.DOCKER_IMAGE }}'
+          image-ref: '${{ env.DOCKER_API_IMAGE }}'
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run trivy vulnerability scanner on frontend docker image
         uses: aquasecurity/trivy-action@0.17.0
         with:
-          image-ref: '${{ env.DOCKER_IMAGE }}'
+          image-ref: '${{ env.DOCKER_FRONT_IMAGE }}'
+
+      - name: Run trivy vulnerability scanner on api docker image ignore-unfixed
+        uses: aquasecurity/trivy-action@0.17.0
+        with:
+          image-ref: '${{ env.DOCKER_API_IMAGE }}'
           ignore-unfixed: true
 
-      - name: Push Docker image
-        run: docker push ${{ env.DOCKER_IMAGE }}
+      - name: Run trivy vulnerability scanner on frontend docker image ignore-unfixed
+        uses: aquasecurity/trivy-action@0.17.0
+        with:
+          image-ref: '${{ env.DOCKER_FRONT_IMAGE }}'
+          ignore-unfixed: true
+
+      - name: Push api docker image
+        run: docker push ${{ env.DOCKER_API_IMAGE }}
+
+      - name: Push front docker image
+        run: docker push ${{ env.DOCKER_FRONT_IMAGE }}

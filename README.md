@@ -2,8 +2,6 @@
 
 Rebook is a website allowing students to resell school books to each other.
 
-[Link to graphical charter](./assets/graphical_charter.md)
-
 ## Requirements
 
 - [git](https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git)
@@ -20,38 +18,28 @@ Rebook is a website allowing students to resell school books to each other.
 ./setup
 ```
 
-### Start the instance
+### To start the instance
 
 ```bash
 docker compose up -d
 ```
 
-In local the project is accessible in http://0.0.0.0:8000 and the admin panel is accessible in http://0.0.0.0:8000/admin
-
-## Use Django manager script
-
-### To run Django test
+### To stop the instance
 
 ```bash
-docker compose exec rebook python manage.py test
+docker compose down
 ```
 
-### To migrate Django database
+### To see containers of the instance
 
 ```bash
-docker compose exec rebook python manage.py migrate
+docker compose ps
 ```
 
-### To make migration of Django database
+### To see api container logs
 
 ```bash
-docker compose exec rebook python manage.py makemigrations
-```
-
-### To create a admin user for the Django app
-
-```bash
-docker compose exec rebook python manage.py createsuperuser
+docker compose logs -f api
 ```
 
 ## For install poetry for dev in local
@@ -75,18 +63,6 @@ For install pre-commit in your local repository
 ```bash
 poetry run pre-commit install
 ```
-
-## Docker compose
-
-`setup` script generate a docker compose for developpement purpose. It takes as input the standard `docker-compose.yml` (same as used in production) and `docker-compose-dev-override`.
-
-It generates a final `docker-compose.yml` to be used easily in your on environment.
-
-To modify something inside docker-compose, use the source file and re-run `./setup.sh` script.
-
-## Environment variables
-
-All environment variables are generated from `deploy/env` in the `docker-compose.yml` file by the script `./setup.sh`
 
 ## Naming convention
 
@@ -121,35 +97,3 @@ Availables type :
 - `docs` Add documentation (README, JSdoc, comments, etc.)
 - `refactor` Change codebase without add feature or fix bug
 - `test` Add test
-
-## For all error with files access
-
-Execute this command if they are some error with files access, because the docker container is running with root user
-
-```bash
-sudo chown $USER -R rebook/
-```
-
-## Using `sass` files
-
-To build the docker image for compiling `sass` files, you need to run the following command :
-
-```bash
-docker build -t sass-compiler:latest ./sass/build
-```
-
-To generate the `css` files from the `sass` files, you need to run the following command :
-
-```bash
-docker run --rm -v ./sass/imports:/app/imports -v ./sass/src:/app/src -v ./rebook/static/css:/app/results sass-compiler:latest /app/src:/app/results
-```
-
-And to watch the `sass` files and compile them automatically, you need to run the following command :
-
-```bash
-# for start
-docker run --name sass --rm -d -v ./sass/imports:/app/imports -v ./sass/src:/app/src -v ./rebook/static/css:/app/results sass-compiler:latest /app/src:/app/results --watch
-
-# for stop
-docker stop sass
-```

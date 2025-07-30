@@ -2,15 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Remote Attach",
-            "type": "python",
+            "name": "API: Remote Attach",
+            "type": "debugpy",
             "request": "attach",
-            "port": 5678,
-            "host": "localhost",
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}/rebook",
-                    "remoteRoot": "/usr/src/app"
+                    "localRoot": "${workspaceFolder}/api/rebook",
+                    "remoteRoot": "/src/rebook"
                 }
             ]
         },

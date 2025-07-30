@@ -1,10 +1,10 @@
 module.exports = {
 	rules: {
 		'body-leading-blank': [1, 'always'],
-		'body-max-line-length': [2, 'always', 100],
+		'body-max-line-length': [2, 'always', 300],
 		'footer-leading-blank': [1, 'always'],
 		'footer-max-line-length': [2, 'always', 100],
-		'header-max-length': [2, 'always', 100],
+		'header-max-length': [2, 'always', 150],
 		'subject-case': [
 			2,
 			'never',
@@ -19,12 +19,13 @@ module.exports = {
 			'always',
 			[
 				'ci',
-				'docs',
+				'doc',
 				'feat',
 				'fix',
 				'refactor',
 				'clean',
 				'test',
+				'build',
 			],
 		],
 	},
@@ -43,7 +44,7 @@ module.exports = {
 						title: 'Bug Fixes',
 						emoji: '🐛',
 					},
-					docs: {
+					doc: {
 						description: 'Documentation only changes',
 						title: 'Documentation',
 						emoji: '📚',
@@ -71,6 +72,11 @@ module.exports = {
 						title: 'Continuous Integrations',
 						emoji: '🦺',
 					},
+					build: {
+						description: 'Build docker images without cache',
+						title: 'Build not cache',
+						emoji: '🪠',
+					}
 				},
 			},
 			scope: {
