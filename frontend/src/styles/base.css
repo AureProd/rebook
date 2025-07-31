@@ -1,1 +1,160 @@
-/* CSS de base */
+/* ===== CSS RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+}
+
+/* ===== STYLES ===== */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #3C2E1D;
+  background: #FFF9EC;
+}
+
+header {
+  background-color: #FFE2C4;
+  border-bottom: 1px solid #D6C7B0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+header div a {
+  display: flex;
+}
+
+header img {
+  width: 64px;
+  width: 64px;
+}
+
+header h1 {
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+header nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 7px 10px;
+  border-radius: 30px;
+  font-size: 18px;
+  border: 1px solid #FFE2C4;
+}
+
+header nav i {
+  font-size: 28px;
+  vertical-align: sub;
+}
+
+header nav a:hover {
+  background-color: #FFD7B0;
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Home page media */
+.home-page-media img {
+  width: 55%;
+  border-radius: 25%;
+  margin: 50px auto 0;
+  box-shadow: 0 0 40px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Categories */
+.categories {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.categories h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.category-buttons button {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #888;
+  background: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.category-buttons button:hover {
+  background-color: #FFD7B0;
+  border: 1px solid #888;
+}
