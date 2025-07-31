@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Favourites Posts / {{ block.super }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h2>My Favourites Posts</h2>
+
+    {% include "posts/posts.html" %}
+{% endblock %}

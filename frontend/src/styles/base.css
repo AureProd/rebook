@@ -1,0 +1,55 @@
+/* ===== BASE STYLES ===== */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #3C2E1D;
+  background: #FFF9EC;
+  min-width: 450px;
+}
+
+/* ===== HEADER STYLES ===== */
+header {
+  background-color: #FFE2C4;
+  border-bottom: 1px solid #D6C7B0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+header div a {
+  display: flex;
+}
+
+header img {
+  width: 64px;
+  width: 64px;
+}
+
+header h1 {
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+header nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 7px 10px;
+  border-radius: 30px;
+  font-size: 18px;
+  border: 1px solid #FFE2C4;
+}
+
+header nav i {
+  font-size: 28px;
+  vertical-align: sub;
+}
+
+header nav a:hover {
+  background-color: #FFD7B0;
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}

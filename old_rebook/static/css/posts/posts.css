@@ -1,0 +1,138 @@
+a#createPost {
+  position: absolute;
+  margin-left: 20px;
+  top: 0;
+  margin-top: 110px;
+}
+
+div#posts {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  row-gap: 40px;
+  margin-bottom: 50px;
+}
+div#posts > div {
+  width: 100%;
+  height: 250px;
+  border: 1.5px solid #232a43;
+  border-radius: 20px;
+  background-color: #f0eadd;
+  overflow: hidden;
+}
+div#posts > div:hover {
+  color: #f1f1e6;
+  background-color: #232a43;
+}
+div#posts > div:hover div.postInfos div.postBook, div#posts > div:hover div.postInfos span.postDescription {
+  border: 1.5px solid #f1f1e6;
+}
+div#posts > div:hover div.postInfos span.postPrice {
+  color: #f9c741;
+}
+div#posts > div:hover > a div.postImage {
+  border-right-color: #f1f1e6;
+}
+div#posts > div > a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+div#posts > div > a div.postImage {
+  width: fit-content;
+  max-width: 50%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border-right-width: 1.5px;
+  border-right-style: solid;
+  border-right-color: #232a43;
+  flex: none;
+}
+div#posts > div > a div.postImage > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+div#posts > div > a div.postInfos {
+  padding: 10px 15px;
+  flex: 100%;
+}
+div#posts > div > a div.postInfos span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div#posts > div > a div.postInfos span.postTitle {
+  text-align: center;
+  font-size: 30px;
+}
+div#posts > div > a div.postInfos span.postDescription {
+  font-size: 20px;
+  margin-top: 20px;
+  height: 60px;
+  border: 1.5px solid #232a43;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+div#posts > div > a div.postInfos > div {
+  display: flex;
+}
+div#posts > div > a div.postInfos > div div.postBook {
+  border: 1.5px solid #232a43;
+  border-radius: 20px;
+  padding: 10px;
+  width: 70%;
+}
+div#posts > div > a div.postInfos > div div.postBook span.postBookAuthor {
+  margin-top: 5px;
+}
+div#posts > div > a div.postInfos > div span.postPrice {
+  width: 30%;
+  font-size: 30px;
+  color: #498cff;
+  margin: auto;
+  text-align: center;
+}
+
+div#pagination {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+div#pagination ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+div#pagination ul a, div#pagination ul li.active, div#pagination ul li.disabled {
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #232a43;
+  border-radius: 50%;
+  background-color: #f0eadd;
+}
+div#pagination ul a:hover, div#pagination ul li.active:hover, div#pagination ul li.disabled:hover {
+  color: #f1f1e6;
+  background-color: #232a43;
+}
+div#pagination ul a.previous, div#pagination ul a.next, div#pagination ul li.active.previous, div#pagination ul li.active.next, div#pagination ul li.disabled.previous, div#pagination ul li.disabled.next {
+  width: 50px;
+  height: 50px;
+}
+div#pagination ul a.active, div#pagination ul li.active.active, div#pagination ul li.disabled.active {
+  background-color: #232a43;
+  color: #f1f1e6;
+}
+div#pagination ul li.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/*# sourceMappingURL=posts.css.map */

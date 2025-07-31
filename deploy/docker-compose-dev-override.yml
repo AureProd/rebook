@@ -1,14 +1,61 @@
-version: '3'
-
+# Docker compose file override for dev
 services:
-  rebook:
-    build:
-      context: .
-      dockerfile: deploy/Dockerfile
-      target: dev
-      args:
-        - PYTHON_VERSION=${PYTHON_VERSION}
+  frontend:
+    build: ./frontend
     volumes:
-      - ./rebook:/usr/src/app/
+      - ./frontend/src:/usr/share/nginx/html # Use for dev permit hot-reload of frontend APP files
+    networks:
+      - reverse_proxy
+
+  api:
+    build:
+      context: ./api
+      target: dev
+    volumes:
+      - ./api/rebook:/src/rebook
     ports:
       - 5678:5678 # port for vscode debugger
+    networks:
+      - reverse_proxy
+
+  rp:
+    restart: always
+    image: traefik
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./deploy/config/traefik-dev.yml:/traefik.yml:ro
+      - ./logs/traefik:/var/log:rw
+    ports:
+      - 127.0.0.1:8080:80
+      - 127.0.0.1:18080:8080
+    networks:
+      - reverse_proxy
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rebook-phpmyadmin-${INSTANCE_NAME}.rule=Host(`${URL_HOST}`) && PathPrefix(`/db`)
+      - traefik.http.routers.rebook-phpmyadmin-${INSTANCE_NAME}.middlewares=rebook-phpmyadmin-redirect-${INSTANCE_NAME}@docker,rebook-phpmyadmin-stripprefix-${INSTANCE_NAME}@docker
+      - traefik.http.middlewares.rebook-phpmyadmin-stripprefix-${INSTANCE_NAME}.stripprefix.prefixes=/db
+      - traefik.http.middlewares.rebook-phpmyadmin-redirect-${INSTANCE_NAME}.redirectregex.regex=/db$
+      - traefik.http.middlewares.rebook-phpmyadmin-redirect-${INSTANCE_NAME}.redirectregex.replacement=/db/
+    environment:
+      - TZ=Europe/Paris
+      - PMA_HOST=db
+      - PMA_ABSOLUTE_URI=https://${URL_HOST}/db/
+    networks:
+      - default
+      - reverse_proxy
+
+networks:
+  default:
+  reverse_proxy:
+    name: reverse_proxy
+    external: false

@@ -1,0 +1,93 @@
+{% if posts %}
+    <div id="posts">
+        {% for post in posts %}
+            <div id="post-{{ post.id }}">
+                <a href="{% url 'post_detail' post.id %}" title="Post {{ post.title }}">
+                    <div class="postImage">
+                        <img src="{{ post.image_1.url }}" alt="{{ post.book.title }} first image">
+                    </div>
+
+                    <div class="postInfos">
+                        <span class="postTitle">{{ post.title }}</span>
+
+                        <span class="postDescription">{{ post.description }}</span>
+
+                        <div>
+                            <div class="postBook">
+                                <span class="postBookTitle">Title : {{ post.book_title }}</span>
+
+                                <span class="postBookAuthor">Author : {{ post.book_author }}</span>
+                            </div>
+
+                            <span class="postPrice">{{ post.price }} €</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <div id="pagination">
+            <ul>
+                {% if page_obj.has_previous %}
+                    <li class="previous">
+                        <a href="?page={{ page_obj.previous_page_number }}" title="Previous page">
+                            <i class="fa-solid fa-caret-left"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>
+                            <i class="fa-solid fa-caret-left"></i>
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page active" title="Page {{ num }}">
+                            <span>{{ num }}</span>
+                        </li>
+                    {% else %}
+                        {% if num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                            <li class="page">
+                                <a href="?page={{ num }}" title="Page {{ num }}">
+                                    <span>{{ num }}</span>
+                                </a>
+                            </li>
+                        {% elif page_obj.number == 1 and num < page_obj.number|add:'3' %}
+                            <li class="page">
+                                <a href="?page={{ num }}" title="Page {{ num }}">
+                                    <span>{{ num }}</span>
+                                </a>
+                            </li>
+                        {% elif page_obj.number == page_obj.paginator.num_pages and num > page_obj.number|add:'-3' %}
+                            <li class="page">
+                                <a href="?page={{ num }}" title="Page {{ num }}">
+                                    <span>{{ num }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="next">
+                        <a href="?page={{ page_obj.next_page_number }}" title="Next page">
+                            <i class="fa-solid fa-caret-right"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span>
+                            <i class="fa-solid fa-caret-right"></i>
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    <p>No posts found !!!</p>
+{% endif %}

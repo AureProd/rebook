@@ -1,29 +1,77 @@
-version: '3'
-
+# Docker compose for production environments (including validation environment)
 services:
-  rebook:
-    image: ${REBOOK_IMAGE}
-    restart: always
-    stop_signal: SIGKILL
-    environment:
-      DB_HOST: db
-      DB_PORT: "5432"
-    env_file:
-      - deploy/env
-    ports:
-      - ${APP_PORT}:8000
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15
+  frontend:
+    image: ${FRONTEND_IMAGE}
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ./logs/frontend:/var/log/nginx:rw
+    depends_on:
+      api:
+        condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rebook-frontend-${INSTANCE_NAME}.rule=Host(`${URL_HOST}`)
+      - traefik.http.routers.rebook-frontend-${INSTANCE_NAME}.priority=1
+    networks:
+      - default
+      - reverse_proxy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]  # Check if NGINX responds at localhost
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+  api:
+    image: ${API_IMAGE}
+    restart: always
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
+      - APP_ENV
+      - APP_VERSION
+      - INSTANCE_NAME
+      - DB_PASSWORD
+    volumes:
+      - ./logs/api:/logs/api:rw
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rebook-api-${INSTANCE_NAME}.rule=Host(`${URL_HOST}`) && PathPrefix(`/api`)
+    networks:
+      - default
+      - reverse_proxy
+    stop_signal: SIGKILL
+    healthcheck:
+      test: curl -s localhost:80/api/health | grep -Eq "^true$"
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+networks:
+  default:
+  reverse_proxy:
+    external: true
 
 volumes:
-  postgres_data:
+  db_data:

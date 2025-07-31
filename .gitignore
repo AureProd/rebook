@@ -9,6 +9,14 @@ __pycache__
 
 /docker-compose.yml
 
+/api/alembic.ini
+
 /rebook/sent_mails
 
 /rebook/static/images
+
+/certificates/*
+!/certificates/.gitkeep
+
+/logs/*
+!/logs/.gitkeep

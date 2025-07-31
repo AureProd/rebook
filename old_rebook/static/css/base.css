@@ -1,0 +1,217 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: unset;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  color: #232a43;
+  background-color: #f1f1e6;
+}
+
+header {
+  background-color: #232a43;
+  background-image: url("/static/textures/texture_dark_blue.png");
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  width: calc(100% - 20px);
+  padding: 5px 20px 0 0;
+  margin-bottom: 35px;
+  text-align: center;
+}
+header > div#tabs {
+  display: flex;
+  justify-content: right;
+  margin-top: 8px;
+}
+header > div#tabs > div {
+  width: 60px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+header > div#tabs > div:hover {
+  cursor: pointer;
+}
+header > div#tabs > div:hover i {
+  color: #f9c741;
+}
+header > div#tabs > div:hover span {
+  color: #f9c741;
+}
+header > div#tabs > div i {
+  font-size: 25px;
+  margin-bottom: 9px;
+  color: #f1f1e6;
+}
+header > div#tabs > div span {
+  text-wrap: nowrap;
+  color: #f1f1e6;
+}
+header > div#homeLink {
+  height: 70px;
+  margin-top: -3px;
+  display: flex;
+  justify-content: center;
+}
+header > div#homeLink img {
+  height: 100%;
+}
+header > div#homeLink img:hover {
+  cursor: pointer;
+  filter: invert(100%);
+  transition: all 0.5s ease-in-out;
+}
+
+main h1, main h2, main p {
+  text-align: center;
+  margin-bottom: 40px;
+}
+main h1 {
+  font-size: 45px;
+}
+main h2 {
+  font-size: 35px;
+}
+main p {
+  font-size: 23px;
+  margin-bottom: 60px;
+}
+main button, main form > input[type=submit] {
+  text-wrap: nowrap;
+  padding: 10px 20px;
+  border-radius: 7px;
+  background-color: #f9c741;
+  border: 1px solid #232a43;
+  color: #232a43;
+  font-size: 23px;
+}
+main button:hover, main form > input[type=submit]:hover {
+  cursor: pointer;
+  background-color: #498cff;
+  color: #f1f1e6;
+}
+main form {
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+main form > input[type=submit] {
+  width: fit-content;
+  margin: auto;
+  margin-top: 30px;
+}
+main form > div {
+  display: flex;
+  margin: auto;
+  width: 500px;
+  margin-bottom: 20px;
+  text-wrap: nowrap;
+  align-items: baseline;
+}
+main form > div > label {
+  width: 50%;
+  text-align: left;
+}
+main form > div > input, main form > div > textarea {
+  width: 100%;
+  font-size: 20px;
+  height: 30px;
+  border-radius: 7px;
+  text-align: center;
+  border: 1px solid #232a43;
+}
+main form > div > input:required, main form > div > textarea:required {
+  border: 1px solid red;
+}
+main form > div > input:required:valid, main form > div > textarea:required:valid {
+  border: 1px solid #232a43;
+}
+main form > div > input[type=date], main form > div input[type=file], main form > div label {
+  cursor: pointer;
+}
+main form > div > input[type=file] {
+  padding: 5px;
+}
+main form > div > textarea {
+  padding: 7px;
+  resize: none;
+  height: 100px;
+  text-align: left;
+}
+main form button {
+  margin: auto;
+  margin-top: 40px;
+}
+main form a {
+  text-decoration: underline;
+  font-size: 110%;
+  color: #498cff;
+}
+main form a:hover {
+  color: #f9c741;
+}
+
+/*# sourceMappingURL=base.css.map */

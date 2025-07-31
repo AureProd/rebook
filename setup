@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Basic usage : ./setup.sh
+
+password_generator() {
+    tr -dc 'A-Za-z0-9' </dev/urandom | head -c $1
+}
+
+# Define generated env vars
+export INSTANCE_NAME="${USER}-$(basename $(pwd))"
+export APP_VERSION="dev-${INSTANCE_NAME}"
+export APP_ENV="dev"
+export FRONTEND_IMAGE="rebook/frontend:${INSTANCE_NAME}"
+export API_IMAGE="rebook/api:${INSTANCE_NAME}"
+export URL_HOST="localhost"
+export DB_PASSWORD=$(password_generator 50)
+
+# generate pureapi JWT keys
+openssl genrsa -out ./certificates/private.pem 512
+openssl rsa -in ./certificates/private.pem -pubout -outform PEM -out ./certificates/public.pem
+
+# Construct docker compose
+docker compose -p "${INSTANCE_NAME}" --project-directory . -f ./deploy/docker-compose.yml -f ./deploy/docker-compose-dev-override.yml config > docker-compose.yml
+
+sed -i -e "s#$(pwd)#.#g" docker-compose.yml
+
+echo "Instance ${INSTANCE_NAME} ready"
+echo "Your docker-compose.yml file is ready to use"
+echo "Once started, your installation will be available at http://localhost:80"
+echo
+echo "\`docker compose up -d\` to start it"
