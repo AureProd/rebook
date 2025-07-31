@@ -1,0 +1,49 @@
+/* ===== HOME PAGE STYLES ===== */
+
+/* Categories */
+.categories {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.categories h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.category-buttons button {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #888;
+  background: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.category-buttons button:hover {
+  background-color: #FFD7B0;
+  border: 1px solid #888;
+}
+
+/* Home page media */
+.home-page-media {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 0;
+  padding: 0 2rem;
+}
+
+.home-page-media img {
+  width: 100%;
+  max-width: 600px; /* Limite la taille max de l'image */
+  height: auto;
+  border-radius: 25px;
+  box-shadow: 0 0 40px 30px rgba(0, 0, 0, 0.1);
+}
