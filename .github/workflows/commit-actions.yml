@@ -26,12 +26,12 @@ jobs:
         run: docker build -t ${{ env.DOCKER_IMAGE }} --build-arg "PYTHON_VERSION=$(cat .python-version)" -f ./deploy/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.17.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: '${{ env.DOCKER_IMAGE }}'
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.17.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: '${{ env.DOCKER_IMAGE }}'
           ignore-unfixed: true
